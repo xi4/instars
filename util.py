@@ -15,4 +15,5 @@ def time_left():
     r_min = math.floor((time-(r_hour*hour))/mins)
     r_sec = ((time -(r_hour  * hour) - (r_min * mins)))
 
-    print str(r_hour)+":"
+    print str(r_hour)+":
+

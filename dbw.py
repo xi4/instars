@@ -1,4 +1,5 @@
 import db
+import datetime
 
 def user(u):
     try:
@@ -39,3 +40,16 @@ def work_get(params):
 def type_w_get_name(type_w):
     resoursId = db.Type_w.select().where(db.Type_w.id==type_w).get()
     return db.Resours.get(db.Resours.id==resoursId).name
+
+def ref_task(id,params):
+    tasks = db.Tasks.select().where(db.Tasks.t_id==id,db.Tasks.id_work==params,db.Tasks.dateEnd!=None)
+    for task in tasks:
+        nowtime = datetime.datetime.now()
+        endtime = task.dateEnd
+        if nowtime>endtime:
+            task.dateEnd = None
+            task.save()
+
+def getLastTime(newtime):
+    nowtime = datetime.datetime.now()
+    return newtime-nowtime
