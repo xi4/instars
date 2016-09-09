@@ -1,19 +1,17 @@
-import datetime
 import math
 
+def get_lvl(xp):
+    xp = xp/1000.0
+    if xp<1:
+        return 0
+    else:
+        return int(math.log(xp,1.6))
 
-def time_left():
+def get_procent(lvl,xp):
+    return int((100*xp)/(1000*((1.6)**lvl+1)))
 
-    nowtime = datetime.datetime.now()
-    newtime = datetime.datetime.now()+datetime.timedelta(minutes=2)
-    time = (newtime-nowtime).total_seconds()
-    print newtime-nowtime
-    mins = 60
-    hour = 60*60
-
-    r_hour = math.floor(time/hour)
-    r_min = math.floor((time-(r_hour*hour))/mins)
-    r_sec = ((time -(r_hour  * hour) - (r_min * mins)))
-
-    print str(r_hour)+":
-
+def get_xp(userlvl,lvl):
+    xp = 100*(10 + lvl-userlvl)/(10+userlvl)
+    if xp<0:
+        xp=0
+    return xp

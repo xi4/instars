@@ -53,3 +53,35 @@ def ref_task(id,params):
 def getLastTime(newtime):
     nowtime = datetime.datetime.now()
     return newtime-nowtime
+
+
+def get_plants_user(user):
+    return db.Herb_plant.select().where(db.Herb_plant.t_id==user.t_id)
+
+
+def ref_farm(user):
+    for p in get_plants_user(user):
+        t_now = datetime.datetime.now()
+        if t_now>p.end_time:
+            p.end_time=None
+            p.save()
+
+
+def get_plants_count_user(user):
+    return db.Herb_plant.select().where(db.Herb_plant.t_id==user.t_id).count()
+
+
+def get_herb_name(herb_id):
+    return db.Herb.get(db.Herb.id==herb_id).txt
+
+
+def buy_herb_plant(user):
+    db.Herb_plant.create(t_id = user.t_id)
+
+
+def get_plant(param):
+    return db.Herb_plant.get(id=param)
+
+
+def get_herb(herb_id):
+    return db.Herb.get(id=herb_id)
